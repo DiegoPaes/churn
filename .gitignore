@@ -1,5 +1,5 @@
 # Data
-/data/
+#/data/
 
 # Mac OS-specific storage files
 .DS_Store
@@ -186,7 +186,8 @@ cython_debug/
 .pypirc
 
 # Pastas e arquivos
-/data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv
-/data/processed/
+data/*
+!data/.gitkeep
+!data/**/*.dvc
 /models/
 /mlruns/
