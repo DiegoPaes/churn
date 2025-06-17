@@ -11,7 +11,7 @@ def diretorio_raiz(start_path: Path = Path().resolve()) -> Path:
     try:
         logging.info('Iniciando a busca pelo diretório raiz')
         for parent in [start_path] + list(start_path.parents):
-            if (parent / 'pyproject.toml').exists:
+            if (parent / 'pyproject.toml').exists():
                 return parent
     except Exception as e:
         raise CustomException(e, sys)
@@ -29,8 +29,10 @@ class DownloadDataset:
     def download_dataset(self) -> Path:
         try:
             logging.info('Iniciando download dataset')
-            self.dataset_path = kagglehub.dataset_download(self.dataset_name)
+            self.dataset_path = kagglehub.dataset_download(self.dataset_name, force_download=True)
             logging.info(f'Download concluído com sucesso em {self.dataset_path}')
+            logging.info(f"Verificando conteúdo de: {self.dataset_path}")
+            logging.info(f"Arquivos dentro do diretório: {os.listdir(self.dataset_path)}")
         except Exception as e:
             raise CustomException(e, sys)
 
@@ -54,5 +56,4 @@ class DownloadDataset:
 if __name__ == '__main__':
     dataset = DownloadDataset()
     dataset.download_dataset()
-    dataset.mover_para_raw()
-    
+    dataset.mover_para_raw()    
